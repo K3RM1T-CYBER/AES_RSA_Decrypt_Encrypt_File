@@ -33,7 +33,7 @@ def encryptdata(file):
     newFile.close()
     print("Encryption done !")
     print("This is your IV, save it : " + str(IV64.decode()))
-    print("This is your password : " + password.decode())
+    print("This is your password, save it : " + password.decode())
 
 
 def decryptdata(file):
