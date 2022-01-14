@@ -63,7 +63,7 @@ print("   2: Decrypt a file\n")
 resultChoice = int(input("Enter your choice : "))
 
 if resultChoice == 1:
-    dataEncrypted = encryptdata(input("Enter the name of the file to encryp : "))
+    dataEncrypted = encryptdata(input("Enter the name of the file to encrypt : "))
 
 if resultChoice == 2:
     dataDecrypted = decryptdata(input("Enter the name of the file to decrypt : "))
