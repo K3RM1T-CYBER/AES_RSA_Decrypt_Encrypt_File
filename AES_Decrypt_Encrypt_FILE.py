@@ -6,7 +6,7 @@ import random
 from Crypto import Random
 from Crypto.Cipher import AES
 
-block_size = 16
+BLOCK_SIZE = 16
 
 
 def genpassword():
@@ -23,7 +23,7 @@ def encryptdata(file):
     length = 16 - (len(dataFile) % 16)
     dataFile += bytes([length]) * length
     password = genpassword()
-    IV = Random.new().read(block_size)
+    IV = Random.new().read(BLOCK_SIZE)
     IV64 = base64.b64encode(IV)
     aes = AES.new(password, AES.MODE_CBC, IV)
     print("Encryption in progress ...\n")
@@ -55,15 +55,15 @@ def decryptdata(file):
 
 
 print("#############################################")
-print("##### CHIFFREMENT - DECHIFFREMENT RSA #######")
+print("########## ENCRYPT - DECRYPT AES ############")
 print("#############################################")
-print("\nBienvenue dans cet outil développé par K3RM1T, que souhaitez vous faire ?\n")
-print("   1: Chiffrer un fichier")
-print("   2: déchiffrer un fichier\n")
-resultChoice = int(input("Entrez votre choix : "))
+print("\nWelcome to this tool developed by K3RM1T, what do you want to do?\n")
+print("   1: Encrypt a file")
+print("   2: Decrypt a file\n")
+resultChoice = int(input("Enter your choice : "))
 
 if resultChoice == 1:
-    dataEncrypted = encryptdata(input("Entrez le nom du fichier à chiffrer : "))
+    dataEncrypted = encryptdata(input("Enter the name of the file to encryp : "))
 
 if resultChoice == 2:
-    dataDecrypted = decryptdata(input("Entrez le nom du fichier à déchiffrer : "))
+    dataDecrypted = decryptdata(input("Enter the name of the file to decrypt : "))
