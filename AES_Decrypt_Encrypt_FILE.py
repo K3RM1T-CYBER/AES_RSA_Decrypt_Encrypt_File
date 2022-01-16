@@ -34,6 +34,7 @@ def encryptdata(file):
     print("Encryption done !")
     print("This is your IV, save it : " + str(IV64.decode()))
     print("This is your password, save it : " + password.decode())
+    return 0
 
 
 def decryptdata(file):
@@ -51,7 +52,7 @@ def decryptdata(file):
     newFile.write(dataDecrypt)
     newFile.close()
     print("Decryption done...If your file cannot open, your password or IV is incorrect")
-
+    return 0
 
 
 print("#############################################")
