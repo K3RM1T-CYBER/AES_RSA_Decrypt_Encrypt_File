@@ -2,7 +2,10 @@ This script allows you to encrypt and decrypt any type of file in AES CBC
 . 
 ##### **Manual :**
 
-N.B : Your encrypted file or the file to be decrypted must be in the current directory of the script.
+1 : Install the packages necessary for the script to work
+`pip3 install -r requirements.txt`
+
+2 : Your encrypted file or the file to be decrypted must be in the current directory of the script.
 
 ###### **Encryption**
 

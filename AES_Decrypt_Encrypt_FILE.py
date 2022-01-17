@@ -1,6 +1,4 @@
 import base64
-import os
-import hashlib
 import string
 import random
 from Crypto import Random
