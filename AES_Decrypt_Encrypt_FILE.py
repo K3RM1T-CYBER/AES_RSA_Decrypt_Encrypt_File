@@ -15,13 +15,13 @@ def rsa_generate_keys():
     publicKeyFile = open('publicKey.pem', 'w')
     publicKeyFile.write(pubKey)  # Ecriture de la clé publique dans le fichier publicKey.pem
     publicKeyFile.close()
-    print("CLE PUBLIQUE OK\n")
+    print(f'CLE PUBLIQUE OK\n')
 
     privKey = key.exportKey('PEM').decode()
     privateKeyFile = open('privateKey.pem', 'w')
     privateKeyFile.write(privKey)  # Ecriture de la clé privé dans le fichier publicKey.pem
     privateKeyFile.close()
-    print("CLE PRIVÉE OK\n")
+    print(f'CLE PRIVÉE OK\n')
 
     return 0
 
@@ -35,7 +35,7 @@ def rsa_encrypt_creds(message):
     saved_creds_file = open("credentials.cre", 'wb')
     saved_creds_file.write(encrypted_bytes)  # Ecrit les informations de déchiffrement dans le fichier credentials.cre
     saved_creds_file.close()
-    print("All is good, You can send the encrypted file and the credentials.cre file to your recipient")
+    print(f'All is good, You can send the encrypted file and the credentials.cre file to your recipient')
     return 0
 
 
@@ -66,12 +66,12 @@ def aes_encrypt_data(file):
     IV = Random.new().read(BLOCK_SIZE)  # Génère 16 bytes random pour le vecteur d'initialisation (IV)
     IV64 = base64.b64encode(IV)  # Encode en base64 l'IV
     aes = AES.new(password, AES.MODE_CBC, IV)  # Génère une méthode AES grace au mdp et à l'IV
-    print("Encryption in progress ...\n")
+    print(f'Encryption in progress ...\n')
     data_encrypt = aes.encrypt(data_file)  # Chiffre les données du fichier avec AES
     new_file = open(name_file + '.enc', 'wb')
     new_file.write(data_encrypt)  # Ecrit les données chiffrés dans une fichier .enc
     new_file.close()
-    print("AES encryption done !")
+    print(f'AES encryption done !')
     credentials_rsa_encrypted = rsa_encrypt_creds(str(IV64.decode()) + "---" + password.decode())  # Sépare IV et mdp
     return 0
 
@@ -87,22 +87,22 @@ def aes_decrypt_data(file):
     password = password.encode()  # Encode le mdp pour qu'il soit reconnu comme un byte
     IV = base64.b64decode(IV.encode())  # Decode l'IV de la base64 et l'encode en byte
     aes = AES.new(password, AES.MODE_CBC, IV)  # Création d'une méthode d'AES avec le mdp et L'IV
-    print('Decryption in progress...')
+    print(f'Decryption in progress...')
     data_decrypt = aes.decrypt(data_file)  # Déchiffre les données du fichier .enc
     new_file = open(name_file, 'wb')
     new_file.write(data_decrypt)  # Enregistre le fichier déchiffré
     new_file.close()
-    print("Decryption done...If your file cannot open, your credentials file is invalid")
+    print(f'Decryption done...If your file cannot open, your credentials file is invalid')
     return 0
 
 
 print("#############################################")
 print("########## ENCRYPT - DECRYPT AES ############")
 print("#############################################")
-print("\nWelcome to this tool developed by K3RM1T, what do you want to do?\n")
-print("   1: Encrypt a file")
-print("   2: Decrypt a file")
-print("   3: Generate an RSA key pair\n")
+print(f'\nWelcome to this tool developed by K3RM1T, what do you want to do?\n')
+print(f'   1: Encrypt a file')
+print(f'   2: Decrypt a file')
+print(f'   3: Generate an RSA key pair\n')
 result_choice = int(input("Enter your choice : "))
 if result_choice == 1:
     aes_encrypt_data(input("Enter the name of the file to encrypt : "))
