@@ -11,12 +11,14 @@ Your recipient will have to decrypt the credentials.cre file with his RSA privat
 
 2 : Your encrypted file, your RSA private key (4096), and the credentials.cre file (only if you decrypt a file), the file to be decrypted must be in the current directory of the script.
 
+###### **Generate the RSA key pair**
+
+`To generate an RSA key pair, you just have to choose option number 3`
+
 ###### **Encryption**
 
-`To encrypt a file, you must enter its name when the program asks you to.
-. Once the file is encrypted, you must keep the IV and the password that allow you to decrypt your file. `
+`To encrypt a file, it must be in the current directory of the program. Then choose option number 1 of the program and follow the instructions`
 
 ###### **Decryption**
 
-`To decrypt the file, you need to enter the file name with .enc extension when
-the program asks you to. Then enter the IV and password associated with the file to decrypt it.`
+`To decrypt a file, it must be in the program's current directory. Then choose program option number 2 and follow the instructions`
