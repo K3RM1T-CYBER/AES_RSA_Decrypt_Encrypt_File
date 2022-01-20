@@ -35,7 +35,7 @@ def rsa_encrypt_creds(message):
     saved_creds_file = open("credentials.cre", 'wb')
     saved_creds_file.write(encrypted_bytes)
     saved_creds_file.close()
-    print("Encryption done ! You can send the encrypted file and the credentials.cre file to your recipient")
+    print("All is good, You can send the encrypted file and the credentials.cre file to your recipient")
     return 0
 
 
@@ -71,6 +71,7 @@ def aes_encrypt_data(file):
     new_file = open(name_file + '.enc', 'wb')
     new_file.write(data_encrypt)
     new_file.close()
+    print("AES encryption done !")
     credentials_rsa_encrypted = rsa_encrypt_creds(str(IV64.decode()) + "---" + password.decode())
     return 0
 
