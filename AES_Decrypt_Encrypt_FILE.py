@@ -8,7 +8,6 @@ from Crypto.Cipher import PKCS1_v1_5
 
 BLOCK_SIZE = 16
 
-
 def rsa_generate_keys():
     key = RSA.generate(4096)
     pubKey = key.public_key().exportKey('PEM').decode()
