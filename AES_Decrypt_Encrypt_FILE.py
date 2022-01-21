@@ -10,6 +10,11 @@ BLOCK_SIZE = 16  # Constante pour définir la taille de blocs pour le fonctionne
 
 
 def rsa_generate_keys():
+    """Generate RSA KEY PAIR.
+
+    Returns:
+            int : 0
+    """
     key = RSA.generate(4096)  # Génération de la paire de clé rsa
     pubKey = key.public_key().exportKey('PEM').decode()
     publicKeyFile = open('publicKey.pem', 'w')
@@ -27,6 +32,14 @@ def rsa_generate_keys():
 
 
 def rsa_encrypt_creds(message):
+    """Encrypts a string with rsa and saves it in a credentials.cre file.
+
+        Args:
+            message (str) : string to encrypt with RSA
+
+        Returns:
+            int : 0
+    """
     key_text = open(input("Enter the name of the file containing the recipient's RSA public key: "), "rb").read()
     public_key = RSA.importKey(key_text)  # Importe la clé publique du destinataire
     cipher = PKCS1_v1_5.new(public_key)
@@ -40,6 +53,12 @@ def rsa_encrypt_creds(message):
 
 
 def rsa_decrypt_creds():
+    """Decrypts a file encrypted with RSA
+
+
+        Returns:
+            str : decrypted string with RSA
+    """
     key_priv = open(input("Enter the name of the file containing your RSA private key: "), "rb").read()
     creds_encrypted = open(input("Enter the name of the file containing the decryption information (.cre) : "),
                            'rb').read()
@@ -50,6 +69,12 @@ def rsa_decrypt_creds():
 
 
 def gen_password():
+    """Generates a 16 character long random password containing numbers and letters
+
+
+        Returns:
+            bytes : the generated password
+    """
     characters = string.ascii_letters + string.digits  # Désigne caractères dans mdp, ici lettres et chiffres
     password = ''.join(random.choice(characters) for i in range(16))  # Génère un mot de passe de 16 caractères
     password = bytes(password, 'utf-8')  # Converti en bytes le mot de passe
@@ -57,6 +82,14 @@ def gen_password():
 
 
 def aes_encrypt_data(file):
+    """Encrypts a file with the AES method and saves in a file name_file.extension.enc
+
+        Args:
+            file (str) : file to encrypt with the AES method
+
+        Returns:
+            int : 0
+    """
     name_file = file
     file = open(file, "rb")  # Ouvre le fichier à chiffrer
     data_file = file.read()  # Lis le fichier à chiffrer
@@ -77,6 +110,14 @@ def aes_encrypt_data(file):
 
 
 def aes_decrypt_data(file):
+    """Decrypts a file with the AES method and saves in a file name_file.extension
+
+        Args:
+            file (str) : file to decrypt with the AES method
+
+        Returns:
+            int : 0
+    """
     name_file = file.replace(".enc", "")
     file = open(file, "rb")  # Ouvre le fichier chiffré .enc
     data_file = file.read()  # Lis les données du fichier
