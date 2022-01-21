@@ -124,8 +124,7 @@ def aes_decrypt_data(file):
     credentials_string = rsa_decrypt_creds()  # Decrypt .cre data encrypt with RSA
     pos_separator = credentials_string.find("-")  # Separate the data from the .created file into a mdp and an IV
     IV = credentials_string[0:pos_separator]
-    password = credentials_string[pos_separator + 3:]
-    password = password.encode()
+    password = credentials_string[pos_separator + 3:].encode()
     IV = base64.b64decode(IV.encode())
     aes = AES.new(password, AES.MODE_CBC, IV)  # Creating an AES method with the password and the IV
     print(f'Decryption in progress...')
