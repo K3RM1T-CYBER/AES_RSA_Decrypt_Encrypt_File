@@ -136,17 +136,25 @@ def aes_decrypt_data(file):
     return 0
 
 
-print("#############################################")
-print("########## ENCRYPT - DECRYPT AES ############")
-print("#############################################")
-print(f'\nWelcome to this tool developed by K3RM1T, what do you want to do?\n')
-print(f'   1: Encrypt a file')
-print(f'   2: Decrypt a file')
-print(f'   3: Generate an RSA key pair\n')
-result_choice = int(input("Enter your choice : "))
-if result_choice == 1:
-    aes_encrypt_data(input("Enter the name of the file to encrypt : "))
-if result_choice == 2:
-    aes_decrypt_data(input("Enter the name of the file to decrypt : "))
-if result_choice == 3:
-    rsa_generate_keys()
+def main():
+    print("#############################################")
+    print("########## ENCRYPT - DECRYPT AES ############")
+    print("#############################################")
+    print(f'\nWelcome to this tool developed by K3RM1T, what do you want to do?\n')
+    print(f'   1: Encrypt a file')
+    print(f'   2: Decrypt a file')
+    print(f'   3: Generate an RSA key pair\n')
+    result_choice = ""
+    while result_choice != '1' or '2' or '3':
+        result_choice = input("Enter your choice : ")
+        if result_choice == '1':
+            aes_encrypt_data(input("Enter the name of the file to encrypt : "))
+        elif result_choice == '2':
+            aes_decrypt_data(input("Enter the name of the file to decrypt : "))
+        elif result_choice == '3':
+            rsa_generate_keys()
+        print(f'Input error, try again')
+
+
+if __name__ == '__main__':
+    main()
