@@ -1,6 +1,7 @@
 import base64
 import string
 import random
+import os
 from Crypto import Random
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
@@ -148,12 +149,20 @@ def main():
     while result_choice != '1' or '2' or '3':
         result_choice = input("Enter your choice : ")
         if result_choice == '1':
-            aes_encrypt_data(input("Enter the name of the file to encrypt : "))
+            file = ""
+            while not os.path.isfile(f'./ + {file}'):
+                file = input("Enter the name of the file to encrypt : ")
+                print('File does not exist, try again')
+            aes_encrypt_data(file)
         elif result_choice == '2':
-            aes_decrypt_data(input("Enter the name of the file to decrypt : "))
+            file = ""
+            while not os.path.isfile(f'./ + {file}'):
+                file = input("Enter the name of the file to decrypt : ")
+                print('File does not exist, try again')
+            aes_decrypt_data(file)
         elif result_choice == '3':
             rsa_generate_keys()
-        print(f'Input error, try again')
+        print("Input error, try again")
 
 
 if __name__ == '__main__':
