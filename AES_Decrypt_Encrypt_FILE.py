@@ -73,14 +73,21 @@ def rsa_decrypt_creds():
         if os.path.isfile(private_key) and private_key[-4:] == ".pem":
             check_private_key = True
             private_key = open(private_key, "rb").read()
-            credentials_encrypted = open(
-                input("Enter the name of the file containing the decryption information (.cre) : "),
-                'rb').read()
-            private_key = RSA.importKey(private_key)  # Import the recipient's private key from the file
-            cipher = PKCS1_v1_5.new(private_key)
-            decrypted_credentials = cipher.decrypt(credentials_encrypted,
-                                                   "ERROR")  # Decrypts information from .cre file
-            return str(decrypted_credentials.decode())
+            check_credentials_encrypted = False
+            while not check_credentials_encrypted:
+                credentials_encrypted = input("Enter the name of the file containing the decryption information "
+                                              "(.cre) : ")
+                if os.path.isfile(credentials_encrypted) and credentials_encrypted[-4:] == ".cre":
+                    check_credentials_encrypted = True
+                    credentials_encrypted = open(credentials_encrypted, 'rb').read()
+                    private_key = RSA.importKey(private_key)  # Import the recipient's private key from the file
+                    cipher = PKCS1_v1_5.new(private_key)
+                    decrypted_credentials = cipher.decrypt(credentials_encrypted,
+                                                           "ERROR")  # Decrypts information from .cre file
+                    return str(decrypted_credentials.decode())
+                else:
+                    print("\nFile doesnt not exist or the file extension is not .cre")
+
         else:
             print("\nFile doesnt not exist or the file extension is not .pem")
 
