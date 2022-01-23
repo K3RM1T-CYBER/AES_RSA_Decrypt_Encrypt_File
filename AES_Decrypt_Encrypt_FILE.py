@@ -41,15 +41,22 @@ def rsa_encrypt_credentials(message):
         Returns:
             int : 0
     """
-    key_text = open(input("Enter the name of the file containing the recipient's RSA public key: "), "rb").read()
-    public_key = RSA.importKey(key_text)  # Imports the recipient's public key
-    cipher = PKCS1_v1_5.new(public_key)
-    message = message.encode()
-    encrypted_bytes = cipher.encrypt(message)  # Encrypt decryption information with RSA
-    saved_credentials_file = open("credentials.cre", 'wb')
-    saved_credentials_file.write(encrypted_bytes)  # Write decryption information to the credentials.cre file
-    saved_credentials_file.close()
-    print(f'All is good, You can send the encrypted file and the credentials.cre file to your recipient')
+    check_key_text = False
+    while not check_key_text:
+        key_text = input("Enter the name of the file containing the recipient's RSA public key: ")
+        if os.path.isfile(key_text) and key_text[-4:] == ".pem":
+            check_key_text = True
+            key_text = open(key_text, "rb").read()
+            public_key = RSA.importKey(key_text)  # Imports the recipient's public key
+            cipher = PKCS1_v1_5.new(public_key)
+            message = message.encode()
+            encrypted_bytes = cipher.encrypt(message)  # Encrypt decryption information with RSA
+            saved_credentials_file = open("credentials.cre", 'wb')
+            saved_credentials_file.write(encrypted_bytes)  # Write decryption information to the credentials.cre file
+            saved_credentials_file.close()
+            print('\nAll is good, You can send the encrypted file and the credentials.cre file to your recipient')
+        else:
+            print("\nFile doesnt not exist or the file extension is not .pem")
     return 0
 
 
@@ -60,13 +67,22 @@ def rsa_decrypt_creds():
         Returns:
             str : decrypted string with RSA
     """
-    private_key = open(input("Enter the name of the file containing your RSA private key: "), "rb").read()
-    credentials_encrypted = open(input("Enter the name of the file containing the decryption information (.cre) : "),
-                                 'rb').read()
-    private_key = RSA.importKey(private_key)  # Import the recipient's private key from the file
-    cipher = PKCS1_v1_5.new(private_key)
-    decrypted_credentials = cipher.decrypt(credentials_encrypted, "ERROR")  # Decrypts information from .cre file
-    return str(decrypted_credentials.decode())
+    check_private_key = False
+    while not check_private_key:
+        private_key = input("Enter the name of the file containing your RSA private key: ")
+        if os.path.isfile(private_key) and private_key[-4:] == ".pem":
+            check_private_key = True
+            private_key = open(private_key, "rb").read()
+            credentials_encrypted = open(
+                input("Enter the name of the file containing the decryption information (.cre) : "),
+                'rb').read()
+            private_key = RSA.importKey(private_key)  # Import the recipient's private key from the file
+            cipher = PKCS1_v1_5.new(private_key)
+            decrypted_credentials = cipher.decrypt(credentials_encrypted,
+                                                   "ERROR")  # Decrypts information from .cre file
+            return str(decrypted_credentials.decode())
+        else:
+            print("\nFile doesnt not exist or the file extension is not .pem")
 
 
 def gen_password():
@@ -155,6 +171,7 @@ def main():
                 if os.path.isfile(file):
                     check_file_encrypt = True
                     aes_encrypt_data(file)
+                    exit(0)
                 else:
                     print("\nFile doesnt not exist, try again")
         elif result_choice == '2':
@@ -164,12 +181,13 @@ def main():
                 if os.path.isfile(file) and file[-4:] == ".enc":
                     check_file_decrypt = True
                     aes_decrypt_data(file)
+                    exit(0)
                 else:
                     print("\nFile doesnt not exist or the file extension is not .enc")
-            aes_decrypt_data(input("Enter the name of the file to decrypt : "))
         elif result_choice == '3':
             rsa_generate_keys()
-        print(f'Choice error, try again')
+            exit(0)
+        print("\nChoice error, try again")
 
 
 if __name__ == '__main__':
