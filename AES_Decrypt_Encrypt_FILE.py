@@ -21,18 +21,18 @@ def rsa_generate_keys():
     public_key_file = open('publicKey.pem', 'w')
     public_key_file.write(public_key)  # Writing the public key to the publicKey.pem file
     public_key_file.close()
-    print(f'CLE PUBLIQUE OK\n')
+    print(f'PUBLIC KEY OK\n')
 
     private_key = key.exportKey('PEM').decode()
     private_key_file = open('privateKey.pem', 'w')
     private_key_file.write(private_key)  # Writing the private key to the privateKey.pem file
     private_key_file.close()
-    print(f'CLE PRIVÉE OK\n')
+    print(f'PRIVATE KEY OK\n')
 
     return 0
 
 
-def rsa_encrypt_creds(message):
+def rsa_encrypt_credentials(message):
     """Encrypts a string with rsa and saves it in a credentials.cre file.
 
         Args:
@@ -106,7 +106,7 @@ def aes_encrypt_data(file):
     new_file.write(data_encrypt)
     new_file.close()
     print(f'AES encryption done !')
-    credentials_rsa_encrypted = rsa_encrypt_creds(str(IV64.decode()) + "---" + password.decode())
+    credentials_rsa_encrypted = rsa_encrypt_credentials(str(IV64.decode()) + "---" + password.decode())
     return 0
 
 
