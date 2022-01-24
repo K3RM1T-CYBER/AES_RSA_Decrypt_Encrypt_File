@@ -125,9 +125,9 @@ def aes_encrypt_data(file):
     length = 16 - (len(data_file) % 16)  # Avoid block size error by adjusting length
     data_file += bytes([length]) * length
     password = gen_password()
-    iv = Random.new().read(BLOCK_SIZE)  # Generate 16 rand bytes for the initialization vector (IV)
-    iv_64 = base64.b64encode(iv)
-    aes = AES.new(password, AES.MODE_CBC, iv)  # Generate AES method using the password and the IV
+    initialisation_vector = Random.new().read(BLOCK_SIZE)  # Generate 16 rand bytes for the IV
+    iv_64 = base64.b64encode(initialisation_vector)
+    aes = AES.new(password, AES.MODE_CBC, initialisation_vector)  # Generate AES method
     print('Encryption in progress ...\n')
     data_encrypt = aes.encrypt(data_file)  # Encrypt file data with AES
     new_file = open(name_file + '.enc', 'wb')
