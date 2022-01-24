@@ -15,10 +15,15 @@ Your recipient will have to decrypt the credentials.cre file with his RSA privat
 
 `To generate an RSA key pair, you just have to choose option number 3`
 
+![Alt Text](https://media0.giphy.com/media/MJeEgCnNgKga75DgkM/giphy.gif?cid=790b7611147810cec698dbc66e9c97ba321f6312e10f630d&rid=giphy.gif&ct=g)
 ###### **Encryption**
 
 `To encrypt a file, it must be in the current directory of the program. Then choose option number 1 of the program and follow the instructions`
 
+![Alt Text](https://media1.giphy.com/media/w7Ww4fefQJuFTUQRL1/giphy.gif?cid=790b7611d0f6249508729e1a47ede541fd526da20f8b90c9&rid=giphy.gif&ct=g)
+
 ###### **Decryption**
 
 `To decrypt a file, it must be in the program's current directory. Then choose program option number 2 and follow the instructions`
+
+![Alt Text](https://media1.giphy.com/media/Z5y6gFgJFDJqHW92wf/giphy.gif?cid=790b7611e6e7778d1c5063e0c961354edba9c755b6f3df41&rid=giphy.gif&ct=g)
