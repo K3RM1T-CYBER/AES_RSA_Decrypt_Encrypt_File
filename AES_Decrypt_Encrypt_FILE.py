@@ -3,7 +3,7 @@ import string
 import random
 import os
 import sys
-from termcolor import colored, cprint
+from termcolor import colored
 from Crypto import Random
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
