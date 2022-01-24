@@ -21,13 +21,13 @@ def rsa_generate_keys():
     public_key_file = open('publicKey.pem', 'w')
     public_key_file.write(public_key)  # Writing the public key to the publicKey.pem file
     public_key_file.close()
-    print(f'PUBLIC KEY OK\n')
+    print('PUBLIC KEY OK\n')
 
     private_key = key.exportKey('PEM').decode()
     private_key_file = open('privateKey.pem', 'w')
     private_key_file.write(private_key)  # Writing the private key to the privateKey.pem file
     private_key_file.close()
-    print(f'PRIVATE KEY OK\n')
+    print('PRIVATE KEY OK\n')
 
     return 0
 
@@ -123,12 +123,12 @@ def aes_encrypt_data(file):
     iv = Random.new().read(BLOCK_SIZE)  # Generate 16 random bytes for the initialization vector (IV)
     iv64 = base64.b64encode(iv)
     aes = AES.new(password, AES.MODE_CBC, iv)  # Generate an AES method using the password and the IV
-    print(f'Encryption in progress ...\n')
+    print('Encryption in progress ...\n')
     data_encrypt = aes.encrypt(data_file)  # Encrypt file data with AES
     new_file = open(name_file + '.enc', 'wb')
     new_file.write(data_encrypt)
     new_file.close()
-    print(f'AES encryption done !')
+    print('AES encryption done !')
     credentials_rsa_encrypted = rsa_encrypt_credentials(str(iv64.decode()) + "---" + password.decode())
     return 0
 
@@ -151,12 +151,12 @@ def aes_decrypt_data(file):
     password = credentials_string[pos_separator + 3:].encode()
     IV = base64.b64decode(IV.encode())
     aes = AES.new(password, AES.MODE_CBC, IV)  # Creating an AES method with the password and the IV
-    print(f'Decryption in progress...')
+    print('Decryption in progress...')
     data_decrypt = aes.decrypt(data_file)  # Decrypt .enc file data
     new_file = open(name_file, 'wb')
     new_file.write(data_decrypt)
     new_file.close()
-    print(f'Decryption done...If your file cannot open, your credentials file is invalid')
+    print('Decryption done...If your file cannot open, your credentials file is invalid')
     return 0
 
 
