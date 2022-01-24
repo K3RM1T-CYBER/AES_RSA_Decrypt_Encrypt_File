@@ -52,9 +52,11 @@ def rsa_encrypt_credentials(message):
             message = message.encode()
             encrypted_bytes = cipher.encrypt(message)  # Encrypt decryption information with RSA
             saved_credentials_file = open("credentials.cre", 'wb')
-            saved_credentials_file.write(encrypted_bytes)  # Write decryption information to the credentials.cre file
+            saved_credentials_file.write(encrypted_bytes)  # Write decryption information to the
+            # credentials.cre file
             saved_credentials_file.close()
-            print('\nAll is good, You can send the encrypted file and the credentials.cre file to your recipient')
+            print('\nAll is good, You can send the encrypted file and the credentials.cre file to '
+                  'your recipient')
         else:
             print("\nFile doesnt not exist or the file extension is not .pem")
     return 0
@@ -75,15 +77,18 @@ def rsa_decrypt_creds():
             private_key = open(private_key, "rb").read()
             check_credentials_encrypted = False
             while not check_credentials_encrypted:
-                credentials_encrypted = input("Enter the name of the file containing the decryption information "
+                credentials_encrypted = input("Enter the name of the file containing the "
+                                              "decryption information "
                                               "(.cre) : ")
                 if os.path.isfile(credentials_encrypted) and credentials_encrypted[-4:] == ".cre":
                     check_credentials_encrypted = True
                     credentials_encrypted = open(credentials_encrypted, 'rb').read()
-                    private_key = RSA.importKey(private_key)  # Import the recipient's private key from the file
+                    private_key = RSA.importKey(private_key)  # Import the recipient's private
+                    # key from the file
                     cipher = PKCS1_v1_5.new(private_key)
                     decrypted_credentials = cipher.decrypt(credentials_encrypted,
-                                                           "ERROR")  # Decrypts information from .cre file
+                                                           "ERROR")  # Decrypts information from
+                    # .cre file
                     return str(decrypted_credentials.decode())
                 else:
                     print("\nFile doesnt not exist or the file extension is not .cre")
@@ -120,16 +125,16 @@ def aes_encrypt_data(file):
     length = 16 - (len(data_file) % 16)  # Avoid block size error by adjusting length
     data_file += bytes([length]) * length
     password = gen_password()
-    iv = Random.new().read(BLOCK_SIZE)  # Generate 16 random bytes for the initialization vector (IV)
-    iv64 = base64.b64encode(iv)
-    aes = AES.new(password, AES.MODE_CBC, iv)  # Generate an AES method using the password and the IV
+    iv = Random.new().read(BLOCK_SIZE)  # Generate 16 rand bytes for the initialization vector (IV)
+    iv_64 = base64.b64encode(iv)
+    aes = AES.new(password, AES.MODE_CBC, iv)  # Generate AES method using the password and the IV
     print('Encryption in progress ...\n')
     data_encrypt = aes.encrypt(data_file)  # Encrypt file data with AES
     new_file = open(name_file + '.enc', 'wb')
     new_file.write(data_encrypt)
     new_file.close()
     print('AES encryption done !')
-    credentials_rsa_encrypted = rsa_encrypt_credentials(str(iv64.decode()) + "---" + password.decode())
+    credentials_rsa_encrypted = rsa_encrypt_credentials(str(iv_64.decode()) + "---" + password.decode())
     return 0
 
 
@@ -146,7 +151,7 @@ def aes_decrypt_data(file):
     file = open(file, "rb")
     data_file = file.read()
     credentials_string = rsa_decrypt_creds()  # Decrypt .cre data encrypt with RSA
-    pos_separator = credentials_string.find("-")  # Separate the data from the .created file into a mdp and an IV
+    pos_separator = credentials_string.find("-")  # Separate the data from the .cre file
     IV = credentials_string[0:pos_separator]
     password = credentials_string[pos_separator + 3:].encode()
     IV = base64.b64decode(IV.encode())
