@@ -134,7 +134,7 @@ def aes_encrypt_data(file):
     new_file.write(data_encrypt)
     new_file.close()
     print('AES encryption done !')
-    credentials_rsa_encrypted = rsa_encrypt_credentials(str(iv_64.decode()) + "---" + password.decode())
+    rsa_encrypt_credentials(str(iv_64.decode()) + "---" + password.decode())
     return 0
 
 
@@ -152,10 +152,10 @@ def aes_decrypt_data(file):
     data_file = file.read()
     credentials_string = rsa_decrypt_creds()  # Decrypt .cre data encrypt with RSA
     pos_separator = credentials_string.find("-")  # Separate the data from the .cre file
-    IV = credentials_string[0:pos_separator]
+    initialisation_vector = credentials_string[0:pos_separator]
     password = credentials_string[pos_separator + 3:].encode()
-    IV = base64.b64decode(IV.encode())
-    aes = AES.new(password, AES.MODE_CBC, IV)  # Creating an AES method with the password and the IV
+    initialisation_vector = base64.b64decode(initialisation_vector.encode())
+    aes = AES.new(password, AES.MODE_CBC, initialisation_vector)  # Creating AES method
     print('Decryption in progress...')
     data_decrypt = aes.decrypt(data_file)  # Decrypt .enc file data
     new_file = open(name_file, 'wb')
@@ -169,10 +169,10 @@ def main():
     print("#############################################")
     print("########## ENCRYPT - DECRYPT AES ############")
     print("#############################################")
-    print(f'\nWelcome to this tool developed by K3RM1T, what do you want to do?\n')
-    print(f'   1: Encrypt a file')
-    print(f'   2: Decrypt a file')
-    print(f'   3: Generate an RSA key pair\n')
+    print('\nWelcome to this tool developed by K3RM1T, what do you want to do?\n')
+    print('   1: Encrypt a file')
+    print('   2: Decrypt a file')
+    print('   3: Generate an RSA key pair\n')
     result_choice = ""
     while result_choice != '1' or '2' or '3':
         result_choice = input("Enter your choice : ")
@@ -189,7 +189,7 @@ def main():
         elif result_choice == '2':
             check_file_decrypt = False
             while not check_file_decrypt:
-                file = input("Enter the name of the file to encrypt : ")
+                file = input("Enter the name of the file to decrypt : ")
                 if os.path.isfile(file) and file[-4:] == ".enc":
                     check_file_decrypt = True
                     aes_decrypt_data(file)
