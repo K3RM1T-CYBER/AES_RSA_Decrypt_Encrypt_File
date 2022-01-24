@@ -8,7 +8,7 @@ Your recipient will have to decrypt the credentials.cre file with his RSA privat
 
 ##### **Informations :**
 
-Dependencies : `pycryptodome`
+Dependencies : `pycryptodome, termcolor`
 
 ##### **Manual :**
 
