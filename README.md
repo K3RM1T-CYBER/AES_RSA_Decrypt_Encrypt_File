@@ -4,6 +4,12 @@ Your file is encrypted in AES. AES encryption works with a password and an initi
 
 Your recipient will have to decrypt the credentials.cre file with his RSA private key (4096)
 
+<br>
+
+##### **Informations :**
+
+Dependencies : `pycryptodome`
+
 ##### **Manual :**
 
 1 : Install the packages necessary for the script to work
