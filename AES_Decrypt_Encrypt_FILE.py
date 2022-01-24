@@ -3,7 +3,7 @@ import string
 import random
 import os
 import sys
-
+from termcolor import colored, cprint
 from Crypto import Random
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
@@ -23,13 +23,13 @@ def rsa_generate_keys():
     with open('publicKey.pem', 'w', encoding="utf-8") as public_key_file:
         public_key_file.write(public_key)  # Writing the public key to the publicKey.pem file
         public_key_file.close()
-    print('PUBLIC KEY OK\n')
+    print(colored('PUBLIC KEY OK\n', 'green'))
 
     private_key = key.exportKey('PEM').decode()
     with open('privateKey.pem', 'w', encoding="utf-8") as private_key_file:
         private_key_file.write(private_key)  # Writing the private key to the privateKey.pem file
         private_key_file.close()
-    print('PRIVATE KEY OK\n')
+    print(colored('PRIVATE KEY OK\n', 'green'))
 
     return 0
 
@@ -58,10 +58,10 @@ def rsa_encrypt_credentials(message):
                 saved_credentials_file.write(encrypted_bytes)  # Write decryption information to the
                 # credentials.cre file
                 saved_credentials_file.close()
-            print('\nAll is good, You can send the encrypted file and the credentials.cre file to '
-                  'your recipient')
+            print(colored('\nAll is good, You can send the encrypted file and the credentials.cre '
+                          'file to your recipient', 'green'))
         else:
-            print("\nFile doesnt not exist or the file extension is not .pem")
+            print(colored("\nFile doesnt not exist or the file extension is not .pem", 'red'))
     return 0
 
 
@@ -96,10 +96,11 @@ def rsa_decrypt_creds():
                     # .cre file
                     return str(decrypted_credentials.decode())
                 else:
-                    print("\nFile doesnt not exist or the file extension is not .cre")
+                    print(colored("\nFile doesnt not exist or the file extension is not .cre", 'red'
+                                  ))
 
         else:
-            print("\nFile doesnt not exist or the file extension is not .pem")
+            print(colored("\nFile doesnt not exist or the file extension is not .pem", 'red'))
 
 
 def gen_password():
@@ -138,7 +139,7 @@ def aes_encrypt_data(file):
     with open(name_file + '.enc', 'wb') as new_file:
         new_file.write(data_encrypt)
         new_file.close()
-    print('AES encryption done !')
+    print(colored('AES encryption done !', 'green'))
     rsa_encrypt_credentials(str(iv_64.decode()) + "---" + password.decode())
     return 0
 
@@ -166,7 +167,8 @@ def aes_decrypt_data(file):
     with open(name_file, 'wb') as new_file:
         new_file.write(data_decrypt)
         new_file.close()
-    print('Decryption done...If your file cannot open, your credentials file is invalid')
+    print(colored('Decryption done...If your file cannot open, your credentials file is invalid',
+                  'green'))
     return 0
 
 
@@ -190,7 +192,7 @@ def main():
                     aes_encrypt_data(file)
                     sys.exit(0)
                 else:
-                    print("\nFile doesnt not exist, try again")
+                    print(colored("\nFile doesnt not exist, try again", 'red'))
         elif result_choice == '2':
             check_file_decrypt = False
             while not check_file_decrypt:
@@ -200,11 +202,11 @@ def main():
                     aes_decrypt_data(file)
                     sys.exit(0)
                 else:
-                    print("\nFile doesnt not exist or the file extension is not .enc")
+                    print(colored("\nFile doesnt not exist or the file extension is not .enc", 'red'))
         elif result_choice == '3':
             rsa_generate_keys()
             sys.exit(0)
-        print("\nChoice error, try again")
+        print(colored("\nChoice error, try again", 'red'))
 
 
 if __name__ == '__main__':
